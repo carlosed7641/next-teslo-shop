@@ -76,13 +76,13 @@ export const ProductForm = ({ product, categories }: Props) => {
             }
         }
 
-        const { ok, updatedProduct, updatedImages } = await createUpdateProduct(formData)
+        const { ok, updatedProduct, error } = await createUpdateProduct(formData)
 
         if (!ok) {
+            console.log({ok, error})
             return
         }
 
-        console.log({updatedProduct, updatedImages})
 
         router.replace(`/admin/product/${updatedProduct?.slug}`)
     }
