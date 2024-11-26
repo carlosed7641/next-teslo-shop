@@ -80,6 +80,10 @@ export const createUpdateProduct = async (formData: FormData) => {
                 })
 
             }
+            let updatedImages: {
+                url: string
+                productId: string
+            }[] = []
 
             // Proceso de carga y guardado de imagenes
             if (formData.getAll('images')) {
@@ -89,6 +93,11 @@ export const createUpdateProduct = async (formData: FormData) => {
                 if (!images) {
                     throw new Error('Error al subir imagenes')
                 }
+
+                updatedImages = images.map(image => ({
+                    url: image!,
+                    productId: updatedProduct.id
+                }))
 
                 await prisma.productImage.createMany({
                     data: images.map(image => ({
@@ -100,7 +109,8 @@ export const createUpdateProduct = async (formData: FormData) => {
             }
 
             return {
-                updatedProduct
+                updatedProduct,
+                updatedImages
             }
 
         })
@@ -111,7 +121,8 @@ export const createUpdateProduct = async (formData: FormData) => {
 
         return {
             ok: true,
-            updatedProduct: prismaTx.updatedProduct
+            updatedProduct: prismaTx.updatedProduct,
+            updatedImages: prismaTx.updatedImages
         }
 
     } catch {
