@@ -76,10 +76,9 @@ export const ProductForm = ({ product, categories }: Props) => {
             }
         }
 
-        const { ok, updatedProduct, error } = await createUpdateProduct(formData)
+        const { ok, updatedProduct } = await createUpdateProduct(formData)
 
         if (!ok) {
-            console.log({ok, error})
             return
         }
 

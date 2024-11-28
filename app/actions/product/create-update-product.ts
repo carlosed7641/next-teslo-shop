@@ -113,10 +113,9 @@ export const createUpdateProduct = async (formData: FormData) => {
             updatedProduct: prismaTx.updatedProduct
         }
 
-    } catch(error) {
+    } catch {
         return {
             ok: false,
-            error,
             message: 'Revisar los logs, no se pudo actualizar/crear'
         }
     }
